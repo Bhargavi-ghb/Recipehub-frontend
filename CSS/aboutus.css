@@ -1,0 +1,148 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #fef1e6 ;
+}
+
+header{
+    padding:10px 15px;
+}
+
+.nav-margin{
+    display:flex;
+    justify-content: flex-end;
+}
+
+.header-h{
+    padding-left: 20%;
+}
+
+
+@media only screen and (max-width:545px){
+    .header-h{
+        padding-left: 0%;
+        font-size: 18px;
+    }
+}
+
+@media only screen and (max-width:768px){
+    .header-h{
+        font-size: 20px;
+        padding-left:0%;
+    }
+}
+
+@media only screen and (max-width:1024px){
+    .header-h{
+        font-size: 25px;
+        padding-left:5%;
+    }
+}
+
+.logo img {
+    width: 100px;
+    margin-right: 10px;
+    border-radius: 50px;
+    margin-left: 3%;
+}
+
+@media only screen and (max-width:545px){
+    header.logo img {
+        width: 50px;
+        margin-right: 2px;
+    }
+}
+
+
+header nav a{
+    margin:0 10px;
+}
+
+ @media only screen and (max-width:545px){
+    .header-h{
+        padding-left: 0%;
+        font-size: 18px;
+    }
+}
+
+@media only screen and (max-width:768px){
+    .header-h{
+        font-size: 20px;
+        padding-left:0%;
+    }
+}
+
+@media only screen and (max-width:1024px){
+    .header-h{
+        font-size: 25px;
+        padding-left:5%;
+    }
+}
+
+.nav-btn{
+    width:100%;
+    background-color: orange;
+    border-radius: 20%;
+}
+
+.con8{
+    margin-top: 2%;
+    background-color:#00AF91;
+    padding-top: 5%;
+    color: white;
+}
+
+.con8-line{
+    margin-top: 10%;
+}
+.con8-icon{
+    width:40px;
+}
+
+#con8-column1{
+   padding-left: 8%;
+}
+
+#con8-column1-h1{
+   padding-left: 8%;
+}
+
+#con8-column1-h1{
+    font-size: 20px;
+}
+
+.con8-footer2-p{
+    padding-left: 8%;
+}
+
+.con8-footer3-p{
+    padding-left: 8%;
+}
+
+@media only screen and (max-width:545px){
+   .con8-footer3{
+    margin-left: 15%;
+   }
+
+   .con8-footer2{
+    margin-left: 15%;
+   }
+}
+
+@media only screen and (width:768px){
+  #con8-column1{
+   padding-left: 2%;
+}
+}
+
+
+
+.con8-footer4{
+    padding-top: 10%;
+}
+
+

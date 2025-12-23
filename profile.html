@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RecipeHub Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff0f5;
+    }
+
+    .dashboard {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 260px;
+      background-color: #20b2aa;
+      color: #fff;
+      padding: 30px 20px;
+    }
+
+    .sidebar h2 {
+      font-size: 1.8rem;
+      margin-bottom: 40px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .sidebar ul li {
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar ul li:hover,
+    .sidebar ul li.active {
+      background-color: #008080;
+      font-weight: 600;
+    }
+
+    .main {
+      flex: 1;
+      padding: 40px;
+      background: linear-gradient(to right, #ffe6f0, #ffeef2);
+    }
+
+    .profile-header {
+      background: linear-gradient(to right, #f8bbd0, #ffeef2);
+      padding: 40px 20px;
+      text-align: center;
+      border-radius: 15px;
+      margin-bottom: 40px;
+    }
+
+    .profile-avatar {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid #fff;
+    }
+
+    .edit-avatar-label {
+      display: inline-block;
+      margin-top: 10px;
+      background-color: #fff;
+      color: #008080;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid #008080;
+    }
+
+    .profile-header h3 {
+      margin-top: 20px;
+      font-size: 1.5rem;
+    }
+
+    .profile-header p {
+      font-size: 1rem;
+    }
+
+    .stats span {
+      display: inline-block;
+      background-color: #008080;
+      color: #fff;
+      padding: 6px 12px;
+      margin: 5px;
+      border-radius: 6px;
+      font-weight: 500;
+    }
+
+    section {
+      display: none;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    .recipe-card {
+      margin-bottom: 20px;
+    }
+
+    .card {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-radius: 12px;
+      box-shadow: 0 6px 14px rgba(0, 128, 128, 0.1);
+    }
+
+    .card-img-top {
+      height: 200px;
+      /* Fix image height */
+      object-fit: cover;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+
+    .card-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+
+    .card-title {
+      color: #ff69b4;
+      font-weight: 600;
+    }
+
+    .star {
+      color: #f4c150;
+    }
+
+    .star.inactive {
+      color: #ccc;
+    }
+
+    .like-icon i {
+      pointer-events: none;
+      /* Allow clicking on the span */
+    }
+
+
+    .like-icon {
+      font-size: 24px;
+      color: #ffb6c1;
+      /* light pink outline */
+      border: 2px solid #ffb6c1;
+      border-radius: 50%;
+      padding: 4px 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .like-icon.liked {
+      background-color: #ffc0cb;
+      /* pastel pink */
+      color: white;
+      border-color: #ff69b4;
+      /* deeper pink */
+    }
+
+    .like-icon:hover {
+      transform: scale(1.2);
+    }
+
+
+    @media (max-width: 768px) {
+      .dashboard {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    .btn-outline-primary {
+      color: #008080;
+      border-color: #ff69b4;
+      font-weight: 600;
+      border-radius: 8px;
+      margin-top: 20px;
+      margin-left: 30px;
+      background-color: white;
+    }
+
+    .btn-outline-primary:hover {
+      background-color: #08efef;
+      color: white;
+    }
+
+    .recipe-status {
+      font-size: 0.7rem;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    /* Status specific styles */
+    .recipe-status.approved {
+      background-color: #c8e6c9;
+      /* pastel green */
+      color: #2e7d32;
+    }
+
+    .recipe-status.rejected {
+      background-color: #ffcdd2;
+      /* pastel red */
+      color: #c62828;
+    }
+
+    .recipe-status.pending {
+      background-color: #fff9c4;
+      /* pastel yellow */
+      color: #f9a825;
+    }
+
+
+    .recipe-author {
+      font-size: 0.9rem;
+      font-style: italic;
+      color: #555;
+      /* soft gray for subtle look */
+      margin-top: 7px;
+      font-weight: bold;
+    }
+
+    .recipe-author strong {
+      color: #008080;
+      /* matches your teal theme */
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="dashboard">
+    <div class="sidebar">
+      <h2>RecipeHub</h2>
+      <ul id="navTabs">
+        <li class="active" data-tab="profile">Profile</li>
+        <li data-tab="allrecipes">Uploaded Recipes</li>
+        <li data-tab="approved">Approved Recipes</li>
+        <li data-tab="rejected">Rejected Recipes</li>
+        <li data-tab="liked">Liked Recipes</li>
+        <li data-tab="rated">Rated Recipes</li>
+        <button onclick="goBack()" class="btn btn-outline-primary mb-4">
+          <i class="fas fa-arrow-left"></i> Back
+        </button>
+      </ul>
+    </div>
+
+    <div class="main">
+      <!-- Profile -->
+      <section id="profile" class="active">
+        <div class="profile-header">
+          <img id="profileAvatar" src="https://i.pravatar.cc/120" alt="Avatar" class="profile-avatar">
+          <br>
+          <label for="avatarInput" class="edit-avatar-label">Edit</label>
+          <input type="file" id="avatarInput" accept="image/*" hidden>
+          <h3 id="userName">User Name</h3>
+          <p id="userEmail">user@example.com</p>
+          <div class="stats">
+            <span id="totalRecipes">Total: 0</span>
+            <span id="approvedCount">Approved: 0</span>
+            <span id="rejectedCount">Rejected: 0</span>
+            <span id="likeCount">Likes: 0</span>
+            <span id="avgRating">Avg Rating: 0</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- All Uploaded Recipes -->
+      <section id="allrecipes">
+        <h4>All Uploaded Recipes</h4>
+        <div class="row" id="allRecipeList"></div>
+      </section>
+
+
+      <!-- Approved Recipes -->
+      <section id="approved">
+        <h4>Approved Recipes</h4>
+        <div class="row" id="approvedList"></div>
+      </section>
+
+      <!-- Rejected Recipes -->
+      <section id="rejected">
+        <h4>Rejected Recipes</h4>
+        <div class="row" id="rejectedList"></div>
+      </section>
+
+      <!-- Liked -->
+      <section id="liked">
+        <h4>Liked Recipes</h4>
+        <div class="row" id="likedRecipes"></div>
+      </section>
+
+      <!-- Rated -->
+      <section id="rated">
+        <h4>Rated Recipes</h4>
+        <div class="row" id="ratedRecipes"></div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const navItems = document.querySelectorAll('#navTabs li');
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        navItems.forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+
+        const tabs = document.querySelectorAll('section');
+        tabs.forEach(tab => tab.classList.remove('active'));
+
+        document.getElementById(item.dataset.tab).classList.add('active');
+      });
+    });
+
+    document.getElementById("avatarInput").addEventListener("change", function () {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          document.getElementById("profileAvatar").src = e.target.result;
+          localStorage.setItem("avatarImage", e.target.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    window.onload = async () => {
+      const savedAvatar = localStorage.getItem("avatarImage");
+      if (savedAvatar) {
+        document.getElementById("profileAvatar").src = savedAvatar;
+      }
+      await loadProfile();
+    };
+
+    async function loadProfile() {
+      const userId = localStorage.getItem("userId");
+
+      const userRes = await fetch(`https://recipehub-backend-1.onrender.com/Users/getiduser/${userId}`);
+      const user = await userRes.json();
+      document.getElementById("userName").textContent = user.name || "User Name";
+      document.getElementById("userEmail").textContent = user.email || "user@example.com";
+
+      const recipesRes = await fetch(`https://recipehub-backend-1.onrender.com/Recipes/user/${userId}/recipes`);
+      const recipes = await recipesRes.json();
+
+      let approved = recipes.filter(r => r.status === 'APPROVED');
+      let rejected = recipes.filter(r => r.status === 'REJECTED');
+
+      document.getElementById("totalRecipes").textContent = `Total: ${recipes.length}`;
+      document.getElementById("approvedCount").textContent = `Approved: ${approved.length}`;
+      document.getElementById("rejectedCount").textContent = `Rejected: ${rejected.length}`;
+
+      const approvedDiv = document.getElementById("approvedList");
+      const rejectedDiv = document.getElementById("rejectedList");
+      const allRecipeDiv = document.getElementById("allRecipeList");
+
+      approvedDiv.innerHTML = "";
+      rejectedDiv.innerHTML = "";
+      allRecipeDiv.innerHTML = "";
+
+      approved.forEach(r => approvedDiv.appendChild(createCard(r)));
+      rejected.forEach(r => rejectedDiv.appendChild(createCard(r)));
+      recipes.forEach(r => allRecipeDiv.appendChild(createCard(r)));
+
+      if (recipes.length === 0) {
+        allRecipeDiv.innerHTML = "<p>No uploaded recipes found.</p>";
+      }
+
+      await renderLikedRecipes();
+      await renderRatedRecipes();
+    }
+
+
+    function createCard(recipe) {
+      const col = document.createElement("div");
+      col.className = "col-lg-3 col-md-4 col-sm-6 mb-4 d-flex";
+
+      const rating = Math.round(recipe.rating || 0);
+      const likedIds = JSON.parse(localStorage.getItem("likedRecipes") || "[]");
+      const isLiked = likedIds.includes(recipe.recipe_id);
+
+      let starsHtml = "";
+      for (let i = 1; i <= 5; i++) {
+        starsHtml += `<span class="star ${i <= rating ? '' : 'inactive'}">&#9733;</span>`;
+      }
+
+      col.innerHTML = `
+    <div class="card w-100 h-100 position-relative">
+      <img src="${recipe.image_url || 'https://via.placeholder.com/300'}" class="card-img-top" alt="${recipe.title}">
+      <div class="card-body d-flex flex-column justify-content-between">
+        <div>
+          <h5 class="card-title d-flex justify-content-between align-items-center" style="color:#ff69b4;">
+              ${recipe.title}
+          <span class="badge recipe-status ${recipe.status.toLowerCase()}">${recipe.status}</span>
+        </h5>
+        <p class="recipe-author"><strong>By:</strong> ${recipe.user?.name || "Unknown"}</p>
+
+        <p class="card-text">Category: ${recipe.category}</p>
+
+        </div>
+        <div class="d-flex justify-content-between align-items-center mt-auto">
+          <div>${starsHtml}</div>
+       
+         <span class="like-icon ${isLiked ? 'liked' : ''}" data-id="${recipe.recipe_id}">
+  <i class="${isLiked ? 'fas' : 'far'} fa-heart"></i>
+</span>
+
+</span>
+
+
+        </div>
+      </div>
+    </div>
+  `;
+      return col;
+    }
+
+    document.addEventListener("click", (e) => {
+      const likeSpan = e.target.closest(".like-icon");
+      if (likeSpan) {
+        const id = parseInt(likeSpan.dataset.id);
+        const icon = likeSpan.querySelector("i");
+        let likedRecipes = JSON.parse(localStorage.getItem("likedRecipes") || "[]");
+
+        const isLiked = likedRecipes.includes(id);
+        if (isLiked) {
+          likedRecipes = likedRecipes.filter(rid => rid !== id);
+          icon.classList.remove("fas");
+          icon.classList.add("far");
+        } else {
+          likedRecipes.push(id);
+          icon.classList.remove("far");
+          icon.classList.add("fas");
+        }
+
+        localStorage.setItem("likedRecipes", JSON.stringify(likedRecipes));
+      }
+    });
+
+
+
+    async function renderLikedRecipes() {
+      const likedIds = JSON.parse(localStorage.getItem("likedRecipes") || "[]");
+      const container = document.getElementById("likedRecipes");
+      container.innerHTML = likedIds.length === 0 ? "<p>No liked recipes.</p>" : "";
+
+      for (const id of likedIds) {
+        const recipe = await fetchRecipeById(id);
+        if (recipe) container.appendChild(createCard(recipe));
+      }
+
+      document.getElementById("likeCount").textContent = `Likes: ${likedIds.length}`;
+    }
+
+    async function renderRatedRecipes() {
+      const ratings = JSON.parse(localStorage.getItem("ratings") || "{}");
+      const container = document.getElementById("ratedRecipes");
+      container.innerHTML = Object.keys(ratings).length === 0 ? "<p>No rated recipes.</p>" : "";
+
+      let total = 0;
+      let count = 0;
+
+      for (const id in ratings) {
+        const recipe = await fetchRecipeById(id);
+        if (recipe) {
+          recipe.rating = ratings[id];
+          total += ratings[id];
+          count++;
+          container.appendChild(createCard(recipe));
+        }
+      }
+
+      const avg = count > 0 ? (total / count).toFixed(1) : 0;
+      document.getElementById("avgRating").textContent = `Avg Rating: ${avg}`;
+    }
+
+    async function fetchRecipeById(id) {
+      try {
+        const res = await fetch(`https://recipehub-backend-1.onrender.com/Recipes/getRecipeById/${id}`);
+        return res.ok ? await res.json() : null;
+      } catch (err) {
+        console.error("Error fetching recipe:", err);
+        return null;
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelector('#navTabs li[data-tab="allrecipes"]').classList.add("active");
+      document.getElementById("allrecipes").classList.add("active");
+    });
+
+    function goBack() {
+      window.location.href = "home.html"; // Change "index.html" to your homepage or previous page
+    }
+
+
+  </script>
+</body>
+
+</html>

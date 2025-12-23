@@ -1,0 +1,282 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #fef1e6 ;
+}
+
+header{
+    padding:10px 15px;
+}
+
+.nav-margin{
+    display:flex;
+    justify-content: flex-end;
+}
+
+.header-h{
+    padding-left: 20%;
+}
+
+
+@media only screen and (max-width:545px){
+    .header-h{
+        padding-left: 0%;
+        font-size: 18px;
+    }
+}
+
+@media only screen and (max-width:768px){
+    .header-h{
+        font-size: 20px;
+        padding-left:0%;
+    }
+}
+
+@media only screen and (max-width:1024px){
+    .header-h{
+        font-size: 25px;
+        padding-left:5%;
+    }
+}
+
+.logo img {
+    width: 100px;
+    margin-right: 10px;
+    border-radius: 50px;
+    margin-left: 3%;
+}
+
+@media only screen and (max-width:545px){
+    header.logo img {
+        width: 50px;
+        margin-right: 2px;
+    }
+}
+
+
+header nav a{
+    margin:0 10px;
+}
+
+.nav-link:hover{
+    
+    color:#00AF91;
+}
+
+
+ @media only screen and (max-width:545px){
+    .header-h{
+        padding-left: 0%;
+        font-size: 18px;
+    }
+}
+
+@media only screen and (max-width:768px){
+    .header-h{
+        font-size: 20px;
+        padding-left:0%;
+    }
+}
+
+@media only screen and (max-width:1024px){
+    .header-h{
+        font-size: 25px;
+        padding-left:5%;
+    }
+}
+
+/* first section */
+
+
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+      max-width: 100%;
+      height: 400px;
+    }
+
+    .carousel-slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      width: 100%;
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      position: relative;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 400px;
+    }
+
+    .caption {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-size: 1.2rem;
+    }
+
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      border: none;
+      color: white;
+      padding: 10px;
+      cursor: pointer;
+      z-index: 10;
+      font-size: 18px;
+      border-radius: 50%;
+    }
+
+    .nav-btn:hover {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .carousel-container {
+        height: 200px;
+      }
+
+      .carousel-slide img {
+        height: 200px;
+      }
+
+      .caption {
+        font-size: 1rem;
+        padding: 6px 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .carousel-container {
+        height: 150px;
+      }
+
+      .carousel-slide img {
+        height: 150px;
+      }
+
+      .caption {
+        font-size: 0.8rem;
+        padding: 5px 8px;
+      }
+
+      .nav-btn {
+        padding: 5px;
+        font-size: 14px;
+      }
+    }
+
+/* second section */ 
+.card-carousel-container {
+      padding: 20px;
+      overflow: hidden;
+    }
+
+.card-carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 20px;
+    scroll-behavior: smooth;
+    padding-bottom: 10px;
+ }
+
+    .card-carousel::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .card-carousel::-webkit-scrollbar-thumb {
+      background-color: #aaa;
+      border-radius: 4px;
+    }
+
+    .card {
+      flex: 0 0 auto;
+      width: 300px;
+      height: 200px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+      scroll-snap-align: center;
+      transition: transform 0.3s ease-in-out;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card img {
+      width: 100%;
+      height: 72%;
+      object-fit: cover;
+    }
+
+    .card-title {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background:#00AF91;
+      color: #ffffff;
+      padding: 10px;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+
+    @media (max-width: 768px) {
+      .card {
+        width: 250px;
+        height: 160px;
+      }
+
+      .card-title {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        width: 200px;
+        height: 130px;
+      }
+
+      .card-title {
+        font-size: 0.9rem;
+      }
+    }
+
+.con1-h2 {
+      text-align: center;
+      margin: 20px 0;
+      color: #333;
+    }
+
+.card1{
+    font-size:20px;
+    padding-top: 30%;
+    text-align: center;
+
+}

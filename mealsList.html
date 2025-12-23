@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Meal Plans</title>
+  <style>
+    body {
+      background-color: #f4f4f4;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h1 {
+      color: #333;
+    }
+    .meal-plan {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .meal-plan h2 {
+      margin-top: 0;
+      font-size: 1.3em;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+    }
+    .meal-day {
+      margin-top: 10px;
+    }
+    .recipe {
+      background: #eef6ff;
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 6px;
+    }
+    .recipe h3 {
+      margin: 0 0 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>My Meal Plans</h1>
+
+  <div id="mealPlansContainer">Loading your meal plans...</div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get("userId");
+
+    async function fetchMealPlans() {
+      if (!userId) {
+        document.getElementById("mealPlansContainer").innerText = "User not identified.";
+        return;
+      }
+
+      try {
+        const response = await fetch(`https://recipehub-backend-1.onrender.com/mealplans/user/${userId}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch meal plans");
+        }
+        const mealPlans = await response.json();
+
+        if (mealPlans.length === 0) {
+          document.getElementById("mealPlansContainer").innerText = "No meal plans found.";
+          return;
+        }
+
+        const container = document.getElementById("mealPlansContainer");
+        container.innerHTML = ""; 
+
+        mealPlans.forEach(plan => {
+          const planDiv = document.createElement("div");
+          planDiv.classList.add("meal-plan");
+
+          const weekRange = `${plan.weekStart} to ${plan.weekEnd}`;
+          planDiv.innerHTML = `<h2>Meal Plan: ${weekRange}</h2>`;
+
+          const recipesByDay = {};
+          plan.recipes.forEach(recipe => {
+            const day = recipe.day;
+            if (!recipesByDay[day]) {
+              recipesByDay[day] = [];
+            }
+            recipesByDay[day].push(recipe);
+          });
+
+          for (const [day, recipes] of Object.entries(recipesByDay)) {
+            const dayDiv = document.createElement("div");
+            dayDiv.classList.add("meal-day");
+            dayDiv.innerHTML = `<h3>${day.charAt(0).toUpperCase() + day.slice(1).toLowerCase()}</h3>`;
+
+            recipes.forEach(r => {
+              const rDiv = document.createElement("div");
+              rDiv.classList.add("recipe");
+              rDiv.innerHTML = `
+                <h4>${r.title}</h4>
+                <p><strong>Description:</strong> ${r.description}</p>
+                <p><strong>Ingredients:</strong> ${r.ingredients}</p>
+                <p><strong>Instructions:</strong> ${r.instructions}</p>
+              `;
+              dayDiv.appendChild(rDiv);
+            });
+
+            planDiv.appendChild(dayDiv);
+          }
+
+          container.appendChild(planDiv);
+        });
+
+      } catch (err) {
+        document.getElementById("mealPlansContainer").innerText = "Error loading meal plans: " + err.message;
+      }
+    }
+
+    fetchMealPlans();
+  </script>
+</body>
+</html>

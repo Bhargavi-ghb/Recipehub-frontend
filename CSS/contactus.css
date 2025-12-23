@@ -1,0 +1,263 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #fff0f5; /* Light pink background */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+/* Navbar */
+.navbar {
+   background-color: #008080;/* Teal */
+}
+
+.navbar-brand img {
+    height: 50px;
+}
+
+.nav-link {
+    color: white !important;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: #ffeef2 !important;
+}
+
+.nav-btn {
+    background-color: #ffc0cb; /* Soft pink */
+    border: none;
+    padding: 8px 16px;
+    color: #333;
+    font-weight: bold;
+    border-radius: 20px;
+    transition: background-color 0.3s;
+}
+
+.nav-btn:hover {
+    background-color: #f8bbd0;
+}
+
+/* Contact Section Background */
+.con1 {
+    background-image: url("../Assests/contact5.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 350px;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-top: 20px;
+}
+
+.con1::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(32, 178, 170, 0.4); /* Teal overlay */
+    z-index: 1;
+}
+
+.con1-heading {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.con1-h1 {
+    font-size: 48px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.con1-heading p {
+    font-size: 18px;
+    color: #fefefe;
+    margin-top: 10px;
+}
+
+/* Details Section */
+.con1-details {
+    background-color: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 0 15px rgba(0, 128, 128, 0.1);
+    margin-top: 30px;
+}
+
+/* Left Column - Info */
+.con1-icon2 h2 {
+    color:  #f796b8;
+    font-weight: bold;
+}
+
+.con1-icon2 p {
+    font-size: 16px;
+    color: #666;
+}
+
+.con1-location1,
+.con1-location2,
+.con1-location3 {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+}
+
+h6 {
+    font-weight: 600;
+    color:  #ff6fa2;
+}
+
+a.con1-location3-mail,
+a.con1-location3-call {
+    text-decoration: none;
+    color: #333;
+}
+
+/* Right Column - Form */
+.con1-form {
+    background-color:rgb(205, 244, 244);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.con1-form h3 {
+    color:  #f785ad;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.con1-form label {
+    display: block;
+    margin-top: 15px;
+    color: #333;
+    font-weight: 500;
+}
+
+.con1-form input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+/* Send Button */
+.con1-btn {
+    margin-top: 20px;
+    background-color: #ffb6c1;
+    color: #333;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.con1-btn:hover {
+    background-color: #f8bbd0;
+}
+
+.con8 {
+    background-color: #008080;
+    /* teal */
+    color: white;
+    padding: 40px 20px;
+    font-size: 0.95rem;
+    margin-top: 30px;
+}
+
+#con8-column1 h4 {
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+#con8-column1-p,
+#con8-column1 p {
+    margin: 5px 0;
+}
+
+.con8-footer2 h4,
+.con8-footer3 h4 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.con8-footer2-p p,
+.con8-footer3-p p {
+    margin: 4px 0;
+    cursor: pointer;
+}
+
+.con8-footer2-p p:hover,
+.con8-footer3-p p:hover {
+    text-decoration: underline;
+}
+
+.con8-footer4 svg {
+    margin-right: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.con8-footer4 svg:hover {
+    transform: scale(1.2);
+}
+
+
+@media screen and (max-width: 768px) {
+    #con7-para {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .con7-btn {
+        width: 100%;
+    }
+
+    .con8 {
+        text-align: center;
+    }
+
+    .con8-footer4 {
+        justify-content: center;
+    }
+
+    .con8-footer2,
+    .con8-footer3 {
+        margin-top: 20px;
+    }
+}
+
+
+ #userDropdown {
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    #userDropdown:focus,
+    #userDropdown:hover {
+      outline: none;
+      background-color: rgba(255, 230, 240, 0.2);
+      border-radius: 0.375rem;
+    }
+
+    #userDropdown span {
+      margin-left: 0.5rem;
+    }

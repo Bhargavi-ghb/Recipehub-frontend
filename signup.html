@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up - RecipeHub</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap">
+  <script type="module" src="./js/firebase.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    body {
+      background-color: #ffffff;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #008080;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar .logo {
+      font-size: 22px;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .toggle-btn {
+      font-size: 22px;
+      background: none;
+      border: none;
+      display: none;
+    }
+
+    .container {
+      width: 95%;
+      max-width: 1200px;
+      margin: 30px auto;
+    }
+
+    .signup-box {
+      display: flex;
+      border-radius: 20px;
+      overflow: hidden;
+      background-color: #fff;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+      flex-wrap: wrap;
+    }
+
+    .signup-section {
+      flex: 1;
+      background: #ffb7af;
+      padding: 40px;
+      color: black;
+      min-width: 300px;
+    }
+
+    .signup-section h3 {
+      font-size: 26px;
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      color: #333;
+    }
+
+    .input-group label {
+      position: absolute;
+      top: 50%;
+      left: 14px;
+      transform: translateY(-50%);
+      color: #555;
+      transition: 0.3s;
+      pointer-events: none;
+    }
+
+    .input-group input:focus+label,
+    .input-group input:not(:placeholder-shown)+label {
+      top: -10px;
+      font-size: 13px;
+      background-color: #ffb7af;
+      padding: 0 5px;
+    }
+
+    .signup-btn {
+      width: 100%;
+      padding: 12px;
+      background: #00AF91;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .signup-btn:hover {
+      background-color: #007f6c;
+    }
+
+    .or-line {
+      margin: 10px 0;
+      text-align: center;
+      color: #555;
+    }
+
+    #google-btn1 {
+      width: 100%;
+      padding: 10px;
+      background: white;
+      color: black;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-weight: 600;
+    }
+
+    #google-btn1:hover {
+      background-color: #f1f1f1;
+    }
+
+    .user-options {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .guest-btn {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+      background-color: #00AF91;
+      color: white;
+    }
+
+    .guest-btn:hover {
+      background-color: #007f6c;
+    }
+
+    .side-panel {
+      flex: 1;
+      min-height: 400px;
+      background-color: #fdfdfd;
+      position: relative;
+    }
+
+    .overlay {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .signup-image {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .quote,
+    .quote1,
+    .back-btn {
+      position: relative;
+      z-index: 1;
+      color: #00AF91;
+      font-style: italic;
+    }
+
+    .quote {
+      font-size: 20px;
+      margin-bottom: 5px;
+      margin-top: 80px;
+    }
+
+    .quote1 {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    .back-btn {
+      background: #ff6f61;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      color: #111;
+      text-decoration: none;
+      margin-top: 30px;
+    }
+
+    .back-btn:hover {
+      background: #00AF91;
+      color: white;
+    }
+
+    .site-footer {
+      background-color: #008080;
+      color: white;
+      text-align: center;
+      padding: 18px 10px;
+      margin-top: 10px;
+      border-top: 4px solid #ffb7af;
+    }
+
+    .footer-content p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .signup-box {
+        flex-direction: column;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background-color: white;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        border-radius: 10px;
+        padding: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #ff6f61;
+        font-weight: 600;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .toggle-btn {
+        display: block;
+        cursor: pointer;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">RecipeHub</div>
+    <button class="toggle-btn">&#9776;</button>
+    <ul class="nav-links">
+      <li><a href="./index.html">Home</a></li>
+      <li><a href="./recipes.html">Recipes</a></li>
+      <li><a href="./aboutus.html">About</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <div class="signup-box">
+      <div class="signup-section">
+        <h3>Create Your Account</h3>
+        <p class="subtitle">Join us for mouthwatering experiences!</p>
+
+        <form>
+          <div class="input-group">
+            <input type="text" id="signupName" required placeholder=" " />
+            <label>Full Name</label>
+          </div>
+          <div class="input-group">
+            <input type="email" id="signupEmail" required placeholder=" " />
+            <label>Email</label>
+          </div>
+          <div class="input-group">
+            <input type="password" id="signupPassword" required placeholder=" " />
+            <label>Password</label>
+          </div>
+
+          <button type="submit" id="Signup-btn1" class="signup-btn">Sign Up</button>
+          <div class="or-line">OR</div>
+
+          <button type="button" id="google-btn1">
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="20" alt="Google Icon" />
+            <span class="continue">Continue with Google</span>
+          </button>
+
+          <div class="user-options">
+            <button type="button" id="anonymous-btn1" class="guest-btn">Continue as Guest</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="side-panel">
+        <div class="overlay">
+          <img src="https://i.pinimg.com/736x/34/28/a3/3428a382b86fff2fc7246b7a6ee2d0c0.jpg" alt=""
+            class="signup-image" />
+          <p class="quote">"Every dish starts with a click."</p>
+          <p class="quote1">Let’s get started!</p>
+          <a href="login.html" class="back-btn"> Explore Recipes ⟶ </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>&copy; 2025 RecipeHub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelector('.toggle-btn').addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.toggle('active');
+    });
+  </script>
+</body>
+
+</html>
