@@ -37,7 +37,7 @@ async function saveUserAndRedirect(firebaseUid, email, name) {
     const data = await response.json();
     localStorage.setItem("userId", data.id);
     console.log("User saved:", data);
-    window.location.href = "/home.html";
+    window.location.href = "home.html";
   } catch (error) {
     alert("Error saving user: " + error.message);
     console.error(error);
