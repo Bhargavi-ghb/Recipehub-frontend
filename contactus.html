@@ -22,20 +22,9 @@
         <div class="collapse navbar-collapse nav-margin" id="collapsibleNavbar">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="Summary.html">Recipes</a></li>
+            <li class="nav-item"><a class="nav-link" href="Recipes.html">Recipes</a></li>
             <li class="nav-item"><a class="nav-link" href="aboutus.html">About Us</a></li>
-          </ul>
-          <div class="dropdown">
-        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-           id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-          <img id="profileAvatar" src="https://i.pravatar.cc/40" alt="User Avatar" width="40" height="40" class="rounded-circle border border-light">
-          <span class="ms-2 d-none d-sm-inline" id="username">User</span>
-        </a>
-        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-          <li><a class="dropdown-item" href="profile.html">Dashboard</a></li>
-          <li><a class="dropdown-item" href="setting.html">Settings</a></li>
-          <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item text-danger "  onclick="logout()" href="./index.html" id="logoutDropdownBtn" >Logout</a></li>
+          <li class="nav-item"><a class="nav-link"  onclick="logout()" href="./index.html" id="logoutDropdownBtn" >Logout</a></li>
         </ul>
       </div>
     </div>
@@ -204,6 +193,12 @@
       event.preventDefault(); 
       alert("Your message has been sent successfully!");
     }
+
+    function logout() {
+  localStorage.removeItem("currentUser");
+  alert("logged out sucessfully")
+  window.location.href = "login.html";
+}
   </script>
 
 </body>

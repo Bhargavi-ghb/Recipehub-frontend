@@ -245,19 +245,3 @@ a.con1-location3-call {
     }
 }
 
-
- #userDropdown {
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-    }
-
-    #userDropdown:focus,
-    #userDropdown:hover {
-      outline: none;
-      background-color: rgba(255, 230, 240, 0.2);
-      border-radius: 0.375rem;
-    }
-
-    #userDropdown span {
-      margin-left: 0.5rem;
-    }
