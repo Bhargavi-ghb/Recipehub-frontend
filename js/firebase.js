@@ -37,7 +37,7 @@ async function saveUserAndRedirect(firebaseUid, email, name) {
     const data = await response.json();
     localStorage.setItem("userId", data.id);
     console.log("User saved:", data);
-    window.location.href = "/home.html";
+    window.location.href = "./home.html";
   } catch (error) {
     alert("Error saving user: " + error.message);
     console.error(error);
@@ -112,7 +112,7 @@ if (loginBtn) {
       localStorage.setItem("userId", userData.id);
 
       alert("Login successful!");
-      window.location.href = "/home.html";
+      window.location.href = "./home.html";
     } catch (error) {
       alert("Login failed: " + error.message);
       console.error(error);
@@ -131,7 +131,7 @@ if (googleLoginBtn) {
 
       await saveUserAndRedirect(user.uid, user.email, user.displayName || "Google User");
       alert("Google login successful!");
-      window.location.href = "/home.html";
+      window.location.href = "./home.html";
     } catch (error) {
       alert("Google login failed: " + error.message);
       console.error(error);
@@ -151,7 +151,7 @@ if (anonymousLoginBtn) {
       await saveUserAndRedirect(user.uid, "anonymous@guest.com", "Guest User");
       sessionStorage.setItem("guestLogin", "true");
       alert("Logged in as Guest.");
-      window.location.href = "/home.html";
+      window.location.href = "./home.html";
     } catch (error) {
       alert("Anonymous login failed: " + error.message);
       console.error(error);
